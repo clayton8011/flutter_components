@@ -7,73 +7,68 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'GridTitle网格标题组件',
+        title: 'OutlineButton组件',
         home: new Scaffold(
             appBar: new AppBar(
-              title: new Text('GridTitle网格标题组件'),
+              title: Text('OutlineButton组件'),
             ),
-            body: DemoPage()
+            body:Center(
+              child: Column(
+                children: <Widget>[
+                  OutlineButton.icon(
+                    onPressed:(){},
+                    icon:Icon(Icons.ac_unit,size: 28,color: Colors.green,) ,
+                    label: Text('图标按钮',style: TextStyle(color: Colors.green,fontSize: 28),),
+                  ),
+                  OutlineButton(
+                    child: Text('OutlineButton组件',style: TextStyle(fontSize: 28),),
+                    onPressed: (){
+
+                    },
+                    borderSide: BorderSide(color: Colors.orange,width: 2),
+                    //按钮颜色
+                    color: Colors.grey,
+                    //按钮失效时边框颜色
+                    disabledBorderColor: Colors.red,
+                    //高亮时的背景色
+                    highlightedBorderColor: Colors.black,
+                    //失效时文本色
+                    disabledTextColor: Colors.grey,
+                    //文本颜色
+                    textColor: Colors.green,
+                    //按钮主题
+                    textTheme: ButtonTextTheme.normal,
+                    //墨汁飞溅的颜色
+                    splashColor: Colors.blue,
+                    //抗锯齿
+                    clipBehavior: Clip.antiAlias,
+                    padding: new EdgeInsets.only(
+                        bottom: 5,
+                        top: 5,
+                        left: 20,
+                        right: 20
+                    ),
+                  )
+                ],
+              ),
+            )
         )
     );
   }
 }
-
-class DemoPage extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState(){
-    return new DemoPageState();
-  }
-}
-class DemoPageState extends State<DemoPage> {
- @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return  Container(
-        height: 600,
-        color: Colors.green,
-        child: GridView.count(
-        crossAxisCount: 2,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 4,
-        padding:EdgeInsets.all(4),
-          children: <Widget>[
-            GridTile(
-              header: Text('Gride Ttitle'),
-                child:  Image.asset('assets/cat.jpg'),
-              footer: Text('Gride footer'),
-            ),
-            Image.asset('assets/cat.jpg'),
-            GridTile(
-              //GridTileBar按钮
-              header: GridTileBar(
-                //标题
-                title: Text('header',style: TextStyle(color: Colors.red),),
-                subtitle: Text('subtitle',style: TextStyle(color: Colors.red),),
-                //前置图标
-                leading: Icon(Icons.print,color: Colors.green,),
-
-              ),
-              child:  Image.asset('assets/cat.jpg',fit: BoxFit.cover,),
-              footer: GridTileBar(
-                //标题
-                title: Text('header',style: TextStyle(color: Colors.red),),
-                //前置图标
-                leading: Icon(Icons.favorite,color: Colors.green,),
-
-              ),
-            ),
-            Image.asset('assets/cat.jpg'),
-            //添加网格效果
-            GridPaper(
-              color: Colors.red,
-              child:  Image.asset('assets/cat.jpg',fit: BoxFit.cover,),
-            ),
-            Image.asset('assets/cat.jpg'),
-            Image.asset('assets/cat.jpg'),
-            Image.asset('assets/cat.jpg'),
-            Image.asset('assets/cat.jpg'),
-          ],
+Widget renderFloatingActionButton(){
+  return ButtonBar(
+    alignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      FloatingActionButton(onPressed: null,
+        tooltip: 'photo_camera',
+        child: Icon(Icons.photo_camera),
       ),
-    );
-  }
+      FloatingActionButton(onPressed: null,
+        tooltip: 'photo_library',
+        child: Icon(Icons.photo_library),
+      ),
+    ],
+  );
 }
+
