@@ -14,12 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.red,
-        ),
-        home: MyHomePage(title:'颜值大师'),
-      );
+      title: 'flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: MyHomePage(title:'颜值大师'),
+    );
   }
 }
 class MyHomePage extends StatefulWidget {
@@ -73,8 +73,8 @@ class _MyHomePageState extends State<MyHomePage>{
     var base64Img= convert.base64Encode(bytesList);
 
     //调用API 检测颜值
-   var url2="https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token="+access_token;
-   var imgBack=await dio.post(url2,options: new Options(contentType: ContentType.json),data: {"image":base64Img,"image_type":"BASE64","face_field":"age,beauty,expression,gender,glasses,emotion"});
+    var url2="https://aip.baidubce.com/rest/2.0/face/v3/detect?access_token="+access_token;
+    var imgBack=await dio.post(url2,options: new Options(contentType: ContentType.json),data: {"image":base64Img,"image_type":"BASE64","face_field":"age,beauty,expression,gender,glasses,emotion"});
     //print('-------------------------------------');
     //print(imgBack);
     if(imgBack.data['error_msg'] == 'SUCCESS'){
@@ -121,17 +121,17 @@ class _MyHomePageState extends State<MyHomePage>{
 //        ),
 //      );
       return Center(
-        child: Container(
-         // decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
-          decoration:BoxDecoration(
-              color: Color(int.parse('0xff519BFF')),
-              borderRadius: BorderRadius.all(Radius.circular(80))
-          ),
-          width: ScreenUtil().setWidth(580),
-          height: ScreenUtil().setWidth(80),
-          child: Text('提交',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(30),height: 2.3),),
-          //color: Colors.blue,
-        )
+          child: Container(
+            // decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(10))),
+            decoration:BoxDecoration(
+                color: Color(int.parse('0xff519BFF')),
+                borderRadius: BorderRadius.all(Radius.circular(80))
+            ),
+            width: ScreenUtil().setWidth(580),
+            height: ScreenUtil().setWidth(80),
+            child: Text('提交',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(30),height: 2.3),),
+            //color: Colors.blue,
+          )
       );
     }else{
       //return Image.file(_image,fit: BoxFit.cover,width: double.infinity,height: double.infinity,);
@@ -171,9 +171,9 @@ class _MyHomePageState extends State<MyHomePage>{
   }
   Widget renderImgBox(){
     if(_faceInfo==null){
-        if(isLoading){
-          return Center(child: CircularProgressIndicator(),);
-        }
+      if(isLoading){
+        return Center(child: CircularProgressIndicator(),);
+      }
       return Text('');
     }else{
       print('**************************');
@@ -181,8 +181,8 @@ class _MyHomePageState extends State<MyHomePage>{
       return Center(
         child: Container(
           decoration:BoxDecoration(
-            color: Colors.white54,
-            borderRadius: BorderRadius.all(Radius.circular(10))
+              color: Colors.white54,
+              borderRadius: BorderRadius.all(Radius.circular(10))
           ),
           //color: Colors.white54,
           width: 300,
@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage>{
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   Text("眼镜："+glassesMap[_faceInfo['glasses']['type']],style: TextStyle(fontSize: 15,),),
-                 Text("情绪："+emotionMap[_faceInfo['emotion']['type']],style: TextStyle(fontSize: 15,),),
+                  Text("情绪："+emotionMap[_faceInfo['emotion']['type']],style: TextStyle(fontSize: 15,),),
                 ],
               ),
 
@@ -229,76 +229,3 @@ class _MyHomePageState extends State<MyHomePage>{
   Map glassesMap = {'none':'无眼镜','common':'普通眼镜','sun':'墨镜'};
   Map emotionMap = {'angry':'愤怒 ','disgust':'厌恶 ','fear':'恐惧 ','happy':'高兴 ','sad':'伤心 ','surprise':'惊讶 ','neutral':'无表情 ','pouty':'撅嘴 ','grimace':'鬼脸',};
 }
-
-
-class ListViewDemo extends StatelessWidget {
-  Widget horizontalList() {
-    return Container(
-      height: 100.0,
-      color: Colors.grey[300],
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.all(8.0),
-            padding: EdgeInsets.all(8.0),
-            color: Colors.grey[200],
-            width: 120.0,
-            child: Center(
-              child: Text(
-                '$index',
-                style: Theme.of(context).textTheme.title,
-              ),
-            ),
-          );
-        },
-        itemCount: 10,
-        shrinkWrap: true, // todo comment this out and check the result
-        physics:
-        ClampingScrollPhysics(), // todo comment this out and check the result
-      ),
-    );
-  }
-
-  Widget verticalList() {
-    return ListView.builder(
-      padding: EdgeInsets.only(top: 8.0),
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.all(8.0),
-          padding: EdgeInsets.all(8.0),
-          color: Colors.grey[200],
-          width: 120.0,
-          height: 120.0,
-          child: Center(
-            child: Text(
-              '$index ddRdd',
-              style: Theme.of(context).textTheme.title,
-            ),
-          ),
-        );
-      },
-      itemCount: 9,
-      shrinkWrap: true, // todo comment this out and check the result
-      physics:
-      ClampingScrollPhysics(), // todo comment this out and check the result
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildListDelegate([
-              horizontalList(),
-              verticalList(),
-            ]),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
