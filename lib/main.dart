@@ -18,18 +18,26 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: MyHomePage(title:'颜值大师'),
+//        home: ListViewDemo(),
+        home: MyHomePage(title: '颜值大师',),
       );
   }
 }
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
   final String title;
+
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 class _MyHomePageState extends State<MyHomePage>{
   int _counter = 0;
+  bool showBox=false;
+  void _hideBox(){
+    setState(() {
+      showBox=!showBox;
+    });
+  }
   bool isLoading=false;
   void _incrementCounter() {
     setState(() {
@@ -105,6 +113,16 @@ class _MyHomePageState extends State<MyHomePage>{
       title: Text(widget.title),
     );
   }
+  Widget _buildColumn() {
+    return Offstage(
+      offstage: showBox,
+      child: Container(
+        width: 250,
+        height: 250,
+        color: Colors.redAccent,
+      ),
+    );
+  }
 
   Widget renderAppBody(){
     if(_image==null){
@@ -128,8 +146,16 @@ class _MyHomePageState extends State<MyHomePage>{
               borderRadius: BorderRadius.all(Radius.circular(80))
           ),
           width: ScreenUtil().setWidth(580),
-          height: ScreenUtil().setWidth(80),
-          child: Text('提交',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: ScreenUtil().setSp(30),height: 2.3),),
+//          height: ScreenUtil().setWidth(80),
+          child:Offstage(
+            offstage: showBox,
+            child: Container(
+              width: 250,
+              height: 250,
+              color: Colors.green,
+            ),
+          ),
+
           //color: Colors.blue,
         )
       );
@@ -156,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage>{
       alignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
         FloatingActionButton(
-          onPressed: (){choosePic(ImageSource.camera);},
+          onPressed: (){_hideBox();},
           tooltip: 'photo_camera',
           backgroundColor: Colors.blue,
           child: Icon(Icons.photo_camera),
@@ -170,6 +196,9 @@ class _MyHomePageState extends State<MyHomePage>{
     );
   }
   Widget renderImgBox(){
+    setState(() {
+      showBox=true;
+    });
     if(_faceInfo==null){
         if(isLoading){
           return Center(child: CircularProgressIndicator(),);
@@ -235,22 +264,32 @@ class ListViewDemo extends StatelessWidget {
   Widget horizontalList() {
     return Container(
       height: 100.0,
+      margin: EdgeInsets.only(top: 30),
       color: Colors.grey[300],
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return Container(
-            margin: EdgeInsets.all(8.0),
-            padding: EdgeInsets.all(8.0),
-            color: Colors.grey[200],
-            width: 120.0,
-            child: Center(
-              child: Text(
-                '$index',
-                style: Theme.of(context).textTheme.title,
+          if(index==0){
+            return Center(
+              child: Text('我是第一个。'),
+            );
+          }else {
+            return Container(
+              margin: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.0),
+              color: Colors.grey[200],
+              width: 120.0,
+              child: Center(
+                child: Text(
+                  '$index',
+                  style: Theme
+                      .of(context)
+                      .textTheme
+                      .title,
+                ),
               ),
-            ),
-          );
+            );
+          }
         },
         itemCount: 10,
         shrinkWrap: true, // todo comment this out and check the result
