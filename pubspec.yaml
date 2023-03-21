@@ -26,7 +26,7 @@ dependencies:
   #拍照和选择照片的插件
   image_picker: ^0.6.0+8
   #请求方法
-  dio: 2.1.5
+  dio: ">=2.1.5 <6.0.0"
   flutter_screenutil: ^0.5.0
 
 dev_dependencies:
